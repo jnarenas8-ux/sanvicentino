@@ -1,8 +1,14 @@
  /** @type {import('tailwindcss').Config} */
 export default {
-   content: ["./src/**/*.{html,js}"],
+   content: ["./**/*.{html,js,py,jsx,ts,vue}", "./app/templates/**/*.{html,js}", "./app/static/js/**/*.js"],
     theme: {
     extend: {
+      colors: {
+        brand: {
+          DEFAULT: '#00b8ff',
+          600: '#009fe6'
+        }
+      },
       keyframes: {
         'fade-slide': {
           '0%':   { transform: 'translateY(100%)',  opacity: '0' },

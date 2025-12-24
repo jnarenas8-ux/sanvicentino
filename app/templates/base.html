@@ -16,48 +16,48 @@
 <body class="bg-gradient-to-b from-blue-300 to-white scroll-smooth">
   <!-- Menú -->
 
-  <nav class="bg-blue-800/90 px-4 py-2 shadow-lg sticky top-0 z-50 backdrop-blur-md">
+  <nav class="px-4 py-2 shadow-lg sticky top-0 z-50 backdrop-blur-md">
     <div class="flex items-center justify-between">
       <!-- Logo y nombre -->
       <div class="flex items-center space-x-2">
-        <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="Logo" class="w-20 h-20 rounded-full shadow-md border-4 border-white" />
-        <span class="text-white text-2xl font-extrabold tracking-wide drop-shadow-lg hidden sm:inline">San Vicentino</span>
-      </div>
-      <!-- Botón hamburguesa animado -->
-  <button id="menu-toggle" class="group flex flex-col justify-center items-center w-12 h-12 md:hidden focus:outline-none" title="Abrir menú" aria-label="Abrir menú">
-        <span class="block w-8 h-1 bg-white mb-1 rounded transition-all duration-300 group-[.open]:rotate-45 group-[.open]:translate-y-2"></span>
-        <span class="block w-8 h-1 bg-white mb-1 rounded transition-all duration-300 group-[.open]:opacity-0"></span>
-        <span class="block w-8 h-1 bg-white rounded transition-all duration-300 group-[.open]:-rotate-45 group-[.open]:-translate-y-2"></span>
-      </button>
-    </div>
-    <!-- Menú principal -->
-    <div id="menu" class="mt-2 hidden md:flex md:items-center md:justify-between animate-fade-in">
-      <div class="flex flex-col md:flex-row md:space-x-6 text-white font-bold md:justify-end">
-        <a href="{{ url_for('index') }}"" class="py-2 px-4 rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Inicio</a>
-        <a href="{{ url_for('contactanos') }}"class="py-2 px-4 rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Nosotros</a>
-        <a href="#" class="py-2 px-4 rounded-lg hover:bg-blue-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Registrate</a>
-      </div>
-      <!-- Ícono de carrito -->
-      <div class="mt-4 md:mt-0 flex justify-center md:justify-end">
-        <button class="relative text-white hover:text-yellow-300 transition duration-300 ease-in-out focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M16 16a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
-          </svg>
-          <span class="absolute top-0 right-0 bg-white text-rose-700 rounded-full px-2 text-xs font-bold">2</span>
+        <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="Logo" class="w-12 h-12 rounded-full shadow-md border-4 border-white" />
+        <!-- Botón hamburguesa animado junto al logo -->
+        <button id="menu-toggle" class="group flex flex-col justify-center items-center w-10 h-10 md:hidden focus:outline-none ml-1" title="Abrir menú" aria-label="Abrir menú">
+          <span class="block w-7 h-0.5 bg-gray-800 mb-1 rounded transition-all duration-300 group-[.open]:rotate-45 group-[.open]:translate-y-2"></span>
+          <span class="block w-7 h-0.5 bg-gray-800 mb-1 rounded transition-all duration-300 group-[.open]:opacity-0"></span>
+          <span class="block w-7 h-0.5 bg-gray-800 rounded transition-all duration-300 group-[.open]:-rotate-45 group-[.open]:-translate-y-2"></span>
         </button>
+
+      </div>
+      <!-- Menú principal (ahora a la derecha) -->
+      <div id="menu" class="hidden md:flex md:items-center md:justify-between animate-fade-in">
+        <div class="flex flex-col md:flex-row md:space-x-6 text-gray-800 font-bold md:justify-end">
+          <a href="{{ url_for('index') }}"" class="py-2 px-4 rounded-lg hover:bg-brand-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Inicio</a>
+          <a href="{{ url_for('contactanos') }}"class="py-2 px-4 rounded-lg hover:bg-brand-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Nosotros</a>
+          <a href="#" class="py-2 px-4 rounded-lg hover:bg-brand-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Registrate</a>
+        </div>
+        <!-- Ícono de carrito -->
+        <div class="mt-0 md:mt-0 flex justify-center md:justify-end">
+          <button class="relative text-gray-800 hover:text-yellow-300 transition duration-300 ease-in-out focus:outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M16 16a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+            </svg>
+            <span class="absolute top-0 right-0 bg-white text-rose-700 rounded-full px-2 text-xs font-bold">2</span>
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
   {% block content %}{% endblock %}
   <!-- Footer profesional -->
-  <footer class="bg-blue-900 text-white mt-10 border-t border-blue-700 shadow-inner">
+  <footer class="bg-sky-500/100  text-gray-800 mt-10 border-t border-brand-600 shadow-inner">
     <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row md:justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
-        <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="Logo" class="w-12 h-12 rounded-full border-2 border-white shadow-md" />
+        <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="Logo" class="w-8 h-8 rounded-full border-2 border-white shadow-md" />
         <span class="font-bold text-lg tracking-wide">San Vicentino</span>
       </div>
-      <nav class="flex flex-col md:flex-row md:space-x-6 text-blue-200 text-sm font-medium items-center">
+      <nav class="flex flex-col md:flex-row md:space-x-6 text-gray-800 text-sm font-medium items-center">
         <a href="#" class="hover:text-white transition">Inicio</a>
         <a href="#" class="hover:text-white transition">Nuestro origen</a>
         <a href="#" class="hover:text-white transition">Contacto</a>
@@ -75,7 +75,7 @@
         <a href="#" title="YouTube" class="hover:text-red-500 transition"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.12C19.19 3.5 12 3.5 12 3.5s-7.19 0-9.391.566A2.994 2.994 0 0 0 .502 6.186C0 8.39 0 12 0 12s0 3.61.502 5.814a2.994 2.994 0 0 0 2.107 2.12C4.81 20.5 12 20.5 12 20.5s7.19 0 9.391-.566a2.994 2.994 0 0 0 2.107-2.12C24 15.61 24 12 24 12s0-3.61-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
       </div>
     </div>
-    <div class="text-center text-blue-300 text-xs py-2 border-t border-blue-800 mt-4">&copy; 2025 San Vicentino. Todos los derechos reservados.</div>
+    <div class="text-center text-gray-800 text-xs py-2 border-t border-sky-400 mt-4">&copy; 2025 San Vicentino. Todos los derechos reservados.</div>
   </footer>
   <script src="{{ url_for('static', filename='js/contactanos.js') }}"></script>
   <script src="{{ url_for('static', filename='js/carrusel.js') }}"></script>
