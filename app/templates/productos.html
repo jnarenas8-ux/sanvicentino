@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-4 mt-6">Productos</h1>
+<a href="{{ url_for('admin.crear') }}" class="bg-green-500 text-white px-4 py-2 rounded">Agregar Producto</a>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+    {% for p in productos %}
+    <div class="bg-white p-4 shadow rounded">
+        <img src="{{ p.imagen }}" alt="Imagen de {{ p.nombre }}" class="w-full h-40 object-cover rounded mb-2">
+        <h2 class="text-xl font-semibold">{{ p.nombre }}</h2>
+        <p class="text-gray-600">S/. {{ p.precio }}</p>
+        <p class="text-sm text-gray-400">{{ p.categoria }}</p>
+        <a href="{{ url_for('main.eliminar', id=p.id) }}" class="text-red-600 mt-2 inline-block">Eliminar</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

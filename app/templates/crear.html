@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-xl font-bold mb-4">Nuevo Producto</h2>
+<form method="POST" class="space-y-4">
+    <input name="nombre" placeholder="Nombre" required class="w-full border p-2 rounded">
+    <input name="precio" type="number" step="0.01" placeholder="Precio" required class="w-full border p-2 rounded">
+    <input name="imagen" placeholder="URL de imagen" class="w-full border p-2 rounded">
+    <input name="categoria" placeholder="Categoría" required class="w-full border p-2 rounded">
+    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+</form>
+{% endblock %}

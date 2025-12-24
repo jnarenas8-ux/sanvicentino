@@ -1,0 +1,7 @@
+/* Tailwind input: usa las directivas para generar utilidades */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Aquí puedes añadir estilos personalizados abajo */
+

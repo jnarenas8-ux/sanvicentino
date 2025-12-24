@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+
+<!-- Carrusel profesional -->
+<section class="relative w-full max-w-5xl mx-auto mt-2 fade-section opacity-0 transition-opacity duration-1000">
+  <div class="relative rounded-xl shadow-2xl overflow-hidden border border-blue-200">
+    <div id="carrusel" class="carousel-inner flex transition-transform duration-700 ease-in-out">
+      <div class="carousel-item min-w-full h-72 md:h-96 flex items-center justify-center bg-gradient-to-r from-blue-400 to-blue-200">
+        <img src="{{ url_for('static', filename='img/letrerodon.png') }}" class="w-full h-full object-cover object-center" alt="Slide 1" />
+      </div>
+      <div class="carousel-item min-w-full h-72 md:h-96 flex items-center justify-center bg-gradient-to-r from-green-400 to-green-200">
+        <img src="{{ url_for('static', filename='img/pe.png') }}" class="w-full h-full object-cover object-center" alt="Slide 2" />
+      </div>
+      <div class="carousel-item min-w-full h-72 md:h-96 flex items-center justify-center bg-gradient-to-r from-pink-400 to-pink-200">
+        <img src="{{ url_for('static', filename='img/portadakarla.png') }}" class="w-full h-full object-cover object-center" alt="Slide 3" />
+      </div>
+    </div>
+    <!-- Botones -->
+    <button id="prev" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-blue-500 hover:text-white text-blue-700 px-3 py-2 rounded-full shadow-lg z-20 transition-all duration-300 border border-blue-300" title="Anterior" aria-label="Anterior">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+    <button id="next" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-blue-500 hover:text-white text-blue-700 px-3 py-2 rounded-full shadow-lg z-20 transition-all duration-300 border border-blue-300" title="Siguiente" aria-label="Siguiente">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+    </button>
+    <!-- Indicadores -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
+      <button class="carousel-indicator w-3 h-3 rounded-full bg-blue-300 border-2 border-white shadow transition-all duration-300" data-slide="0" title="Ir al slide 1" aria-label="Ir al slide 1"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full bg-blue-300 border-2 border-white shadow transition-all duration-300" data-slide="1" title="Ir al slide 2" aria-label="Ir al slide 2"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full bg-blue-300 border-2 border-white shadow transition-all duration-300" data-slide="2" title="Ir al slide 3" aria-label="Ir al slide 3"></button>
+    </div>
+  </div>
+</section>
+
+<!-- Parallax -->
+
+<section class="h-[600px] bg-fixed bg-gradient-to-r from-blue-200 to-white flex flex-col items-center justify-start py-3 fade-section opacity-0 transition-opacity duration-1000">
+<h2 class="text-4xl font-bold text-pink-500 drop-shadow-lg px-16">¡Descubre nuestras ofertas!</h2>
+  <!-- Grid Repite para más productos -->
+  <div class="w-full max-w-6xl grid md:grid-cols-3 gap-4 mt-6 px-4">
+    <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+      <img src="{{ url_for('static', filename='img/agua.jpeg') }}" alt="Agua San Vicentino"
+        class="w-full h-48 object-cover rounded-t-lg" />
+      <div class="p-4">
+        <h2 class="text-xl font-semibold">Agua San Vicentino</h2>
+        <p class="text-gray-600">Botella de 500ml, ideal para hidratar a tu familia.</p>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Comprar ahora</button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+      <img src="{{ url_for('static', filename='img/Don italo.png') }}" alt="Don Italo"
+        class="w-full h-48 object-cover rounded-t-lg" />
+      <div class="p-4">
+        <h2 class="text-xl font-semibold">Pack Don Italo</h2>
+        <p class="text-gray-600">Pack promocional con descuento especial.</p>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Comprar ahora</button>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+      <img src="{{ url_for('static', filename='img/portadakarla.png') }}" alt="Portada Karla"
+        class="w-full h-48 object-cover rounded-t-lg" />
+      <div class="p-4">
+        <h2 class="text-xl font-semibold">Oferta Karla</h2>
+        <p class="text-gray-600">Producto seleccionado con envío gratis.</p>
+        <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 transition">Comprar ahora</button>
+      </div>
+    </div>
+  </div>
+  <!-- Fin Grid Repite para más productos -->
+  <!-- Letrero / Slide abajo -->
+  <div class="mt-8 relative w-full max-w-8xl mx-auto overflow-hidden">
+    <!-- Contenedor responsive: altura variable según breakpoint -->
+    <div class="relative w-full h-10 sm:h-12 md:h-14 lg:h-16">
+      <div class="absolute inset-0 animate-fade-slide animation-delay-6000">
+        <div class="w-full h-full flex items-center justify-center bg-pink-700 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-lg text-center px-3 sm:px-6 leading-tight">
+          <span class="block truncate">Al CUIDADO DE LA SALUD DE NUESTROS HIJOS</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 animate-fade-slide animation-delay-3000">
+        <div class="w-full h-full flex items-center justify-center bg-cyan-500 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-lg text-center px-3 sm:px-6 leading-tight">
+          <span class="block truncate">UNICA COMO SU GENTE</span>
+        </div>
+      </div>
+      <div class="absolute inset-0 animate-fade-slide animation-delay-2000">
+        <div class="w-full h-full flex items-center justify-center bg-pink-700 text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold text-white drop-shadow-lg text-center px-3 sm:px-6 leading-tight">
+          <span class="block truncate">SAN VICENTINO</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Fin Letrero -->
+  
+</section>
+
+<section class="h-[300px] bg-fixed bg-gradient-to-r from-blue-200 to-white flex items-center justify-center fade-section opacity-0 transition-opacity duration-1000">
+  <!-- Galería tipo abanico con deslizamiento automático y responsive -->
+  <div id="fan-gallery" class="relative w-full max-w-3xl flex items-center justify-center h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96">
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div id="fan-images" class="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 flex items-center justify-center">
+        <img src="{{ url_for('static', filename='img/letrerodon.png') }}" class="fan-img" alt="Imagen 1" />
+        <img src="{{ url_for('static', filename='img/pe.png') }}" class="fan-img" alt="Imagen 2" />
+        <img src="{{ url_for('static', filename='img/portadakarla.png') }}" class="fan-img" alt="Imagen 3" />
+      </div>
+    </div>
+  </div>
+
+</section>
+
+{% endblock %}

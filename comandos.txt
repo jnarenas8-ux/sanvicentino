@@ -1,0 +1,5 @@
+para instalar SQLAlchemy siguiente codigo:
+pip install --only-binary :all: Flask-SQLAlchemy
+
+Para subir al github
+.gitignore
