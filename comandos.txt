@@ -1,5 +1,7 @@
 para instalar SQLAlchemy siguiente codigo:
 pip install --only-binary :all: Flask-SQLAlchemy
-
+PARA ACTIVAR EL ENTORNO
+source venv/bin/activate
+pip install -r requirements.txt
 Para subir al github
 .gitignore
