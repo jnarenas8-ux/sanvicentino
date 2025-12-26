@@ -46,14 +46,13 @@
 
 @keyframes fade-slide {
   0%   { opacity: 0; transform: translateX(100%); }
-  15%  { opacity: 1; transform: translateX(0); }
-  45%  { opacity: 1; }
-  60%  { opacity: 0; transform: translateX(-100%); }
-  100% { opacity: 0; }
+  10%  { opacity: 1; transform: translateX(0); }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-100%); }
 }
 
 .animate-fade-slide {
-  animation: fade-slide 15s ease-in-out infinite;
+  animation: fade-slide 10s ease-in-out infinite;
 }
 
 .animation-delay-3000 {
@@ -62,4 +61,8 @@
 
 .animation-delay-6000 {
   animation-delay: 10s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 0s;
 }

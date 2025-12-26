@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="relative h-[500px] bg-fixed bg-center bg-cover" style="background-image: url('https://via.placeholder.com/1200x800?text=Parallax');">
+<section class="relative h-[500px] bg-fixed bg-center bg-cover" style="background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('/static/img/aguamedio.png'); background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position: center;">
   <!-- Botones -->
   <div class="absolute top-4 right-4 flex space-x-4">
     <button onclick="mostrarDescripcion('belleza')" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition">Belleza</button>
@@ -16,7 +16,7 @@
     <img src="https://via.placeholder.com/120x120?text=Belleza" alt="Belleza" class="w-28 h-28 object-cover rounded-full border-4 border-pink-300">
     <div>
       <h2 class="text-xl font-bold mb-2 text-pink-700">Belleza</h2>
-      <p>La belleza se manifiesta en los detalles, en la armonía de los colores y en la expresión auténtica de cada ser.</p>
+      <p>La marca San Vicentino, a través de su agua alcalina, contribuye de manera natural al cuidado y la belleza integral. Gracias a su composición, apoya la hidratación del organismo, lo que se refleja en una piel más fresca, luminosa y saludable. El consumo de agua alcalina San Vicentino forma parte de un estilo de vida equilibrado, donde el bienestar interno se traduce en una belleza natural y duradera..</p>
     </div>
   </div>
 
@@ -25,16 +25,16 @@
     <img src="https://via.placeholder.com/120x120?text=Familia" alt="Familia" class="w-28 h-28 object-cover rounded-full border-4 border-blue-300">
     <div>
       <h2 class="text-xl font-bold mb-2 text-blue-700">Familia</h2>
-      <p>La familia es el núcleo de afecto, apoyo y crecimiento. Un espacio donde florecen los valores y la identidad.</p>
+      <p>San Vicentino, con su agua alcalina, es una opción pensada para el bienestar de toda la familia. Su calidad y pureza la convierten en una alternativa segura y saludable para acompañar el día a día de niños, jóvenes y adultos. Promueve hábitos de hidratación responsables y contribuye a un estilo de vida saludable, fortaleciendo el cuidado y la unión familiar a través de decisiones conscientes para el bienestar común.</p>
     </div>
   </div>
 
   <!-- Medio Ambiente -->
   <div id="descripcion-medio" class="hidden animate-fade-in bg-white bg-opacity-80 p-4 rounded shadow flex items-center space-x-4">
-    <img src="https://via.placeholder.com/120x120?text=Medio" alt="Medio Ambiente" class="w-28 h-28 object-cover rounded-full border-4 border-green-300">
+    <img src="/static/img/agua.jpeg" alt="Medio Ambiente" class="w-28 h-28 object-cover rounded-full border-4 border-green-300">
     <div>
       <h2 class="text-xl font-bold mb-2 text-green-700">Medio Ambiente</h2>
-      <p>Cuidar el medio ambiente es preservar la vida. Cada acción cuenta para construir un futuro sostenible.</p>
+      <p>La marca San Vicentino, dedicada a la producción de agua alcalina, mantiene un firme compromiso con el cuidado del medio ambiente. Sus procesos de producción están orientados a reducir el impacto ambiental, promoviendo el uso responsable de los recursos naturales y prácticas sostenibles. Asimismo, sus productos contribuyen a una cultura de consumo consciente, alineándose con iniciativas que buscan proteger el entorno y fomentar un equilibrio entre bienestar humano y preservación del planeta.</p>
     </div>
   </div>
 </div>

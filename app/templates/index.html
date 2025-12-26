@@ -7,10 +7,10 @@
   <div class="relative rounded-xl shadow-2xl overflow-hidden border border-blue-200">
     <div id="carrusel" class="carousel-inner flex transition-transform duration-700 ease-in-out">
       <div class="carousel-item min-w-full h-72 md:h-96 flex items-center justify-center bg-gradient-to-r from-blue-400 to-blue-200">
-        <img src="{{ url_for('static', filename='img/letrerodon.png') }}" class="w-full h-full object-cover object-center" alt="Slide 1" />
+        <img src="{{ url_for('static', filename='img/san vicentino.jpg') }}" class="w-full h-full object-cover object-center" alt="Slide 1" />
       </div>
       <div class="carousel-item min-w-full h-72 md:h-96 flex items-center justify-center bg-gradient-to-r from-green-400 to-green-200">
-        <img src="{{ url_for('static', filename='img/pe.png') }}" class="w-full h-full object-cover object-center" alt="Slide 2" />
+        <img src="{{ url_for('static', filename='img/aguamedio.png') }}" class="w-full h-full object-cover object-center" alt="Slide 2" />
       </div>
       <div class="carousel-item min-w-full h-72 md:h-96 flex items-center justify-center bg-gradient-to-r from-pink-400 to-pink-200">
         <img src="{{ url_for('static', filename='img/portadakarla.png') }}" class="w-full h-full object-cover object-center" alt="Slide 3" />
@@ -49,7 +49,7 @@
     </div>
 
     <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
-      <img src="{{ url_for('static', filename='img/Don italo.png') }}" alt="Don Italo"
+      <img src="{{ url_for('static', filename='img/bidon.jpg') }}" alt="Don Italo"
         class="w-full h-48 object-cover rounded-t-lg" />
       <div class="p-4">
         <h2 class="text-xl font-semibold">Pack Don Italo</h2>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="bg-white rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
-      <img src="{{ url_for('static', filename='img/portadakarla.png') }}" alt="Portada Karla"
+      <img src="{{ url_for('static', filename='img/aguamedio.png') }}" alt="Portada Karla"
         class="w-full h-48 object-cover rounded-t-lg" />
       <div class="p-4">
         <h2 class="text-xl font-semibold">Oferta Karla</h2>
@@ -94,14 +94,15 @@
   
 </section>
 
-<section class="h-[300px] bg-fixed bg-gradient-to-r from-blue-200 to-white flex items-center justify-center fade-section opacity-0 transition-opacity duration-1000">
+<section class="h-64 sm:h-72 md:h-80 lg:h-96 xl:h-[400px] bg-fixed bg-gradient-to-r from-blue-200 to-white flex flex-col md:flex-row items-center justify-center fade-section opacity-0 transition-opacity duration-1000">
   <!-- Galería tipo abanico con deslizamiento automático y responsive -->
-  <div id="fan-gallery" class="relative w-full max-w-3xl flex items-center justify-center h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96">
-    <div class="absolute inset-0 flex items-center justify-center">
+  <div id="fan-gallery" class="relative w-full max-w-2xl sm:max-w-3xl md:max-w-4xl lg:max-w-5xl xl:max-w-6xl flex items-center justify-center h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96">
+    <div class="absolute inset-0 flex flex-col md:flex-row items-center justify-center">
       <div id="fan-images" class="relative w-full h-56 sm:h-64 md:h-72 lg:h-80 xl:h-96 flex items-center justify-center">
-        <img src="{{ url_for('static', filename='img/letrerodon.png') }}" class="fan-img" alt="Imagen 1" />
-        <img src="{{ url_for('static', filename='img/pe.png') }}" class="fan-img" alt="Imagen 2" />
-        <img src="{{ url_for('static', filename='img/portadakarla.png') }}" class="fan-img" alt="Imagen 3" />
+        <img src="{{ url_for('static', filename='img/agua.jpeg') }}" class="fan-img w-full h-full object-cover" alt="Imagen 1" />
+        <img src="{{ url_for('static', filename='img/sanvicentinoagua.jpg') }}" class="fan-img w-full h-full object-cover" alt="Imagen 2" />
+        <img src="{{ url_for('static', filename='img/bidon.jpg') }}" class="fan-img w-full h-full object-cover" alt="Imagen 3" />
+        <img src="{{ url_for('static', filename='img/aguasanvicentino.jfif') }}" class="fan-img w-full h-full object-cover" alt="Imagen 4" />
       </div>
     </div>
   </div>

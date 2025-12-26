@@ -5,18 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}San vicentino{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/Carrusel.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/carrusel.css') }}">
   <!-- CSS compilado por Tailwind -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/contactanos.css') }}">
  
-
 </head>
 
 <body class="bg-gradient-to-b from-blue-300 to-white scroll-smooth">
   <!-- Menú -->
 
-  <nav class="px-4 py-2 shadow-lg sticky top-0 z-50 backdrop-blur-md">
+  <nav class="px-4 py-2 shadow-lg sticky top-0 z-50 backdrop-blur-md bg-blue-500">
     <div class="flex items-center justify-between">
       <!-- Logo y nombre -->
       <div class="flex items-center space-x-2">
@@ -31,10 +30,11 @@
       </div>
       <!-- Menú principal (ahora a la derecha) -->
       <div id="menu" class="hidden md:flex md:items-center md:justify-between animate-fade-in">
-        <div class="flex flex-col md:flex-row md:space-x-6 text-gray-800 font-bold md:justify-end">
-          <a href="{{ url_for('index') }}"" class="py-2 px-4 rounded-lg hover:bg-brand-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Inicio</a>
-          <a href="{{ url_for('contactanos') }}"class="py-2 px-4 rounded-lg hover:bg-brand-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Nosotros</a>
-          <a href="#" class="py-2 px-4 rounded-lg hover:bg-brand-600 hover:scale-105 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white">Registrate</a>
+        <div class="flex flex-col md:flex-row md:space-x-4 text-white font-serif md:justify-end">
+          <a href="{{ url_for('index') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Inicio</a>
+          <a href="{{ url_for('contactanos') }}"class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Nosotros</a>
+          <a href="{{ url_for('register') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Registrate</a>
+          <a href="{{ url_for('login') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Ingresar</a>
         </div>
         <!-- Ícono de carrito -->
         <div class="mt-0 md:mt-0 flex justify-center md:justify-end">
@@ -51,13 +51,13 @@
 
   {% block content %}{% endblock %}
   <!-- Footer profesional -->
-  <footer class="bg-sky-500/100  text-gray-800 mt-10 border-t border-brand-600 shadow-inner">
+  <footer class="bg-blue-500 text-white mt-10 border-t border-brand-600 shadow-inner backdrop-blur-md">
     <div class="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row md:justify-between items-center gap-4">
       <div class="flex items-center space-x-3">
         <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="Logo" class="w-8 h-8 rounded-full border-2 border-white shadow-md" />
         <span class="font-bold text-lg tracking-wide">San Vicentino</span>
       </div>
-      <nav class="flex flex-col md:flex-row md:space-x-6 text-gray-800 text-sm font-medium items-center">
+      <nav class="flex flex-col md:flex-row md:space-x-4 text-white text-sm font-serif items-center">
         <a href="#" class="hover:text-white transition">Inicio</a>
         <a href="#" class="hover:text-white transition">Nuestro origen</a>
         <a href="#" class="hover:text-white transition">Contacto</a>
@@ -75,7 +75,7 @@
         <a href="#" title="YouTube" class="hover:text-red-500 transition"><svg fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.12C19.19 3.5 12 3.5 12 3.5s-7.19 0-9.391.566A2.994 2.994 0 0 0 .502 6.186C0 8.39 0 12 0 12s0 3.61.502 5.814a2.994 2.994 0 0 0 2.107 2.12C4.81 20.5 12 20.5 12 20.5s7.19 0 9.391-.566a2.994 2.994 0 0 0 2.107-2.12C24 15.61 24 12 24 12s0-3.61-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
       </div>
     </div>
-    <div class="text-center text-gray-800 text-xs py-2 border-t border-sky-400 mt-4">&copy; 2025 San Vicentino. Todos los derechos reservados.</div>
+    <div class="text-center text-white text-xs py-2 border-t border-sky-400 mt-4">&copy; 2025 San Vicentino. Todos los derechos reservados.</div>
   </footer>
   <script src="{{ url_for('static', filename='js/contactanos.js') }}"></script>
   <script src="{{ url_for('static', filename='js/carrusel.js') }}"></script>
