@@ -1,6 +1,7 @@
-
 Flask
 Flask-SQLAlchemy
-Flask-LoginFlask-WTF
+Flask-Login
 pymysql
-Flask-WTF WTForms email-validator
+Flask-WTF 
+WTForms 
+email-validator

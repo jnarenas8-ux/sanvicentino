@@ -48,14 +48,38 @@ def contactanos():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        # Verificar si el usuario o email ya existen
+        existing_user = User.query.filter(
+            (User.username == form.username.data) |
+            (User.email == form.email.data)
+        ).first()
+
+        if existing_user:
+            flash('El usuario o correo ya están registrados.', 'danger')
+            return render_template('register.html', form=form)
+
+        # Crear usuario
+        hashed_password = generate_password_hash(
+            form.password.data,
+            method='pbkdf2:sha256'
+        )
+
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            password=hashed_password
+        )
+
         db.session.add(user)
         db.session.commit()
+
         flash('Cuenta creada exitosamente. Ahora puedes iniciar sesión.', 'success')
-        return redirect(url_for('login'))
+        return redirect(url_for('login'))  # ← limpia inputs automáticamente
+
     return render_template('register.html', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
