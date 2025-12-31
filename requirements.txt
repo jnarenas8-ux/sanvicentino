@@ -1,7 +1,0 @@
-Flask
-Flask-SQLAlchemy
-Flask-Login
-pymysql
-Flask-WTF 
-WTForms 
-email-validator

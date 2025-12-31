@@ -5,5 +5,5 @@ source venv/bin/activate
 pip install -r requirements.txt
 Para subir al github
 .gitignore
-
+pip install -r requirements.txt
 cd /workspaces/sanvicentino/app && /workspaces/sanvicentino/.venv/bin/python ./run.py
