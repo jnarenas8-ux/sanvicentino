@@ -13,7 +13,8 @@ from dotenv import load_dotenv
 import os
 from pathlib import Path
 import secrets
-
+import time
+from sqlalchemy.exc import OperationalError
 # ========================
 # CARGAR VARIABLES DE ENTORNO
 # ========================
@@ -28,7 +29,10 @@ assert os.getenv("GOOGLE_CLIENT_SECRET"), "GOOGLE_CLIENT_SECRET NO CARGADO"
 # ========================
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
-app.config['SQLALCHEMY_DATABASE_URI'] = ('mysql+pymysql://usuario_app:password_app@mysql:3306/sanvicentino')
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "mysql+pymysql://usuario_app:password_app@mysql:3306/sanvicentino"
+)
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

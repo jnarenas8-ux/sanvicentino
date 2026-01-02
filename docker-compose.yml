@@ -4,7 +4,7 @@ services:
     container_name: mysql_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: sanvicentino
       MYSQL_USER: usuario_app
       MYSQL_PASSWORD: password_app
@@ -12,17 +12,25 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   flask:
-    build: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: flask_app
     restart: always
-    depends_on:
-      - mysql
     env_file:
       - .env
     ports:
       - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
 
 volumes:
   mysql_data:
