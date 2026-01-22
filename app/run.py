@@ -172,6 +172,11 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
+
+@app.route('/contactanos')
+def contactanos():
+    return render_template('contactanos.html')
+
 # ========================
 # MAIN
 # ========================
