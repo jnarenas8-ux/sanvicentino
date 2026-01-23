@@ -1,77 +1,95 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md animate-fade-in">
-    <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">Iniciar Sesión</h2>
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-pink-50 px-4 py-8">
+  <div class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md">
+    
+    <!-- Encabezado -->
+    <div class="text-center mb-8">
+      <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="San Vicentino"
+           class="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-blue-500 shadow-md">
+      <h2 class="text-3xl font-bold text-gray-800 mb-2">Bienvenido de Vuelta</h2>
+      <p class="text-gray-600">Inicia sesión en tu cuenta</p>
+    </div>
+
+    <!-- Mensajes de error/éxito -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
-    <div
-      class="mb-4 p-4 rounded {{ 'bg-red-100 text-red-700' if category == 'danger' else 'bg-green-100 text-green-700' }}">
+    <div class="mb-4 p-4 rounded-lg text-sm border-l-4
+      {% if category == 'danger' %}
+        bg-red-50 text-red-700 border-red-400
+      {% else %}
+        bg-green-50 text-green-700 border-green-400
+      {% endif %}
+    ">
       {{ message }}
     </div>
     {% endfor %}
     {% endif %}
     {% endwith %}
-    <form method="POST" class="space-y-4">
-      <!-- Logo -->
-      <div class="flex justify-center mb-4">
-        <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="San Vicentino"
-          class="w-24 h-24 rounded-full object-cover border-4 border-blue-500 shadow-md">
-      </div>
+
+    <form method="POST" class="space-y-5">
       {{ form.hidden_tag() }}
+
+      <!-- Email -->
       <div>
-        {{ form.email.label(class="block text-sm font-medium text-gray-700") }}
-        {{ form.email(class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none
-        focus:ring-blue-500 focus:border-blue-500") }}
+        {{ form.email.label(class="block text-sm font-semibold text-gray-700 mb-2") }}
+        {{ form.email(class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition",
+                      placeholder="tu@email.com") }}
         {% if form.email.errors %}
-        <div class="text-red-500 text-sm mt-1">
+        <div class="text-red-500 text-xs mt-1">
           {% for error in form.email.errors %}{{ error }}{% endfor %}
         </div>
         {% endif %}
       </div>
+
+      <!-- Contraseña -->
       <div>
-        {{ form.password.label(class="block text-sm font-medium text-gray-700") }}
-        {{ form.password(class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm
-        focus:outline-none focus:ring-blue-500 focus:border-blue-500") }}
+        {{ form.password.label(class="block text-sm font-semibold text-gray-700 mb-2") }}
+        {{ form.password(class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition",
+                         placeholder="Tu contraseña") }}
         {% if form.password.errors %}
-        <div class="text-red-500 text-sm mt-1">
+        <div class="text-red-500 text-xs mt-1">
           {% for error in form.password.errors %}{{ error }}{% endfor %}
         </div>
         {% endif %}
       </div>
+
+      <!-- Botón de login -->
       <div>
-        {{ form.submit(class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none
-        focus:ring-2 focus:ring-blue-500 transition duration-200") }}
+        {{ form.submit(
+          class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 px-4 rounded-lg font-semibold
+                 hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2
+                 focus:ring-blue-400 focus:ring-offset-2 transition duration-300 shadow-md"
+        ) }}
       </div>
+
       <!-- Separador -->
-      <div class="flex items-center my-4">
-        <div class="flex-grow border-t border-gray-300"></div>
-        <span class="mx-2 text-sm text-gray-500">o</span>
-        <div class="flex-grow border-t border-gray-300"></div>
-      </div>
-      
-      <!-- Separador -->
-      <div class="flex items-center my-4">
+      <div class="flex items-center my-5">
         <div class="flex-grow border-t border-gray-300"></div>
         <span class="mx-2 text-sm text-gray-500">o</span>
         <div class="flex-grow border-t border-gray-300"></div>
       </div>
 
-      <!-- Google Login (AL FINAL) -->
+      <!-- Google Login -->
+      {% if oauth_enabled %}
       <a href="{{ url_for('google_login') }}"
-         class="w-full flex items-center justify-center gap-3 border border-gray-300
-                py-2 rounded-md hover:bg-gray-100 transition">
+         class="w-full flex items-center justify-center gap-3 border-2 border-gray-300
+                py-3 rounded-lg hover:bg-gray-50 transition font-medium text-gray-700">
         <img src="https://www.svgrepo.com/show/475656/google-color.svg"
              class="w-5 h-5" alt="Google">
-        <span class="text-gray-700 font-medium">
-          Iniciar sesión con Google
-        </span>
+        Iniciar sesión con Google
       </a>
+      {% endif %}
     </form>
-    <p class="mt-4 text-center text-sm text-gray-600">
-      ¿No tienes cuenta? <a href="{{ url_for('register') }}" class="text-blue-600 hover:text-blue-500">Regístrate</a>
+
+    <!-- Enlace a registro -->
+    <p class="mt-6 text-center text-sm text-gray-600">
+      ¿No tienes cuenta? 
+      <a href="{{ url_for('register') }}" class="text-blue-600 font-semibold hover:text-blue-800 transition">
+        Regístrate aquí
+      </a>
     </p>
   </div>
 </div>

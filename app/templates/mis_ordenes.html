@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Mis Órdenes - San Vicentino{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-8 text-gray-800">Mis Órdenes</h1>
+    
+    {% if orders %}
+    <div class="space-y-6">
+        {% for order in orders %}
+        <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 p-6 bg-gradient-to-r from-blue-50 to-gray-50 border-b">
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Número de Orden</p>
+                    <p class="text-xl font-bold text-blue-600">{{ order.order_number }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Fecha</p>
+                    <p class="text-lg font-semibold text-gray-800">{{ order.created_at.strftime('%d/%m/%Y') }}</p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Estado</p>
+                    <p>
+                        {% if order.status == 'completado' %}
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">✓ Completado</span>
+                        {% elif order.status == 'pendiente' %}
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-semibold">⏳ Pendiente</span>
+                        {% else %}
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">✗ Cancelado</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm font-semibold mb-1">Total</p>
+                    <p class="text-2xl font-bold text-green-600">S/. {{ "%.2f"|format(order.total) }}</p>
+                </div>
+                <div class="flex items-end justify-end">
+                    <a href="{{ url_for('resumen_orden', order_id=order.id) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition">
+                        Ver Detalles
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Detalles de productos -->
+            <div class="p-6">
+                <h3 class="font-bold text-gray-800 mb-4">Productos ({{ order.items|length }})</h3>
+                <div class="space-y-2">
+                    {% for item in order.items[:3] %}
+                    <div class="flex justify-between text-gray-700 text-sm">
+                        <div>
+                            <span class="font-semibold">{{ item.product_name }}</span>
+                            <span class="text-gray-500"> x{{ item.quantity }}</span>
+                        </div>
+                        <span class="font-semibold">S/. {{ "%.2f"|format(item.subtotal) }}</span>
+                    </div>
+                    {% endfor %}
+                    {% if order.items|length > 3 %}
+                    <div class="text-blue-600 text-sm font-semibold">
+                        +{{ order.items|length - 3 }} producto(s) más
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Pie de la tarjeta -->
+            <div class="px-6 py-4 bg-gray-50 border-t flex justify-between items-center">
+                <div>
+                    <p class="text-gray-600 text-sm">
+                        Método de pago: 
+                        {% if order.payment_method == 'yape' %}
+                            <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">YAPE</span>
+                        {% else %}
+                            <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-semibold">Tarjeta</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="text-gray-600 text-sm">
+                    <a href="{{ url_for('resumen_orden', order_id=order.id) }}" class="text-blue-600 hover:underline font-semibold">
+                        Ver Recibo →
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% else %}
+    <div class="bg-white rounded-lg shadow-lg p-12 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">No tienes órdenes aún</h2>
+        <p class="text-gray-600 mb-6">¡Empieza a comprar productos increíbles!</p>
+        <a href="{{ url_for('productos') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition inline-block">
+            Ver Productos
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -33,18 +33,51 @@
       <div id="menu" class="hidden md:flex md:items-center md:justify-between animate-fade-in">
         <div class="flex flex-col md:flex-row md:space-x-4 text-white font-serif md:justify-end">
           <a href="{{ url_for('index') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Inicio</a>
+          
+          <!-- Pestaña Productos (solo si está autenticado) -->
+          {% if current_user.is_authenticated %}
+          <a href="{{ url_for('productos') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Productos</a>
+          {% endif %}
+          
           <a href="{{ url_for('contactanos') }}"class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Nosotros</a>
-          <a href="{{ url_for('register') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Registrate</a>
-          <a href="{{ url_for('login') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Ingresar</a>
+          
+          <!-- Menú Administración (Solo para Admin) -->
+          {% if current_user.is_authenticated and current_user.is_admin %}
+          <div class="relative group">
+            <button class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">
+              ⚙️ Admin
+            </button>
+            <div class="absolute left-0 mt-0 w-48 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <a href="{{ url_for('crear_producto') }}" class="block px-4 py-2 hover:bg-blue-100 rounded-t-lg">📦 Crear Producto</a>
+              <a href="{{ url_for('productos') }}" class="block px-4 py-2 hover:bg-blue-100 border-t border-gray-200">📋 Ver Productos</a>
+              <a href="{{ url_for('logout') }}" class="block px-4 py-2 hover:bg-red-100 rounded-b-lg border-t border-gray-200">🚪 Salir</a>
+            </div>
+          </div>
+          {% elif current_user.is_authenticated %}
+            <a href="{{ url_for('mis_ordenes') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Mis Órdenes</a>
+            <a href="{{ url_for('logout') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-red-500 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Salir</a>
+          {% else %}
+            <a href="{{ url_for('register') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Registrate</a>
+            <a href="{{ url_for('login') }}" class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Ingresar</a>
+          {% endif %}
         </div>
         <!-- Ícono de carrito -->
-        <div class="mt-0 md:mt-0 flex justify-center md:justify-end">
-          <button class="relative text-gray-800 hover:text-yellow-300 transition duration-300 ease-in-out focus:outline-none">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M16 16a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
-            </svg>
-            <span class="absolute top-0 right-0 bg-white text-rose-700 rounded-full px-2 text-xs font-bold">2</span>
-          </button>
+        <div class="mt-0 md:mt-0 flex justify-center md:justify-end ml-4">
+          {% if current_user.is_authenticated %}
+            <a href="{{ url_for('ver_carrito') }}" class="relative text-white hover:text-yellow-300 transition duration-300 ease-in-out focus:outline-none" title="Ver carrito">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M16 16a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+              </svg>
+              <span class="absolute top-0 right-0 bg-red-600 text-white rounded-full px-2 text-xs font-bold cart-count">{{ cart_count if cart_count else 0 }}</span>
+            </a>
+          {% else %}
+            <a href="{{ url_for('login') }}" class="relative text-white hover:text-yellow-300 transition duration-300 ease-in-out focus:outline-none" title="Inicia sesión para comprar">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.5 6h13M7 13L5.4 5M16 16a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+              </svg>
+              <span class="absolute top-0 right-0 bg-gray-400 text-white rounded-full px-2 text-xs font-bold">0</span>
+            </a>
+          {% endif %}
         </div>
       </div>
     </div>

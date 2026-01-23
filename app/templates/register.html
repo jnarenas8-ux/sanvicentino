@@ -1,21 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="min-h-screen flex items-center justify-center bg-pink-50 px-4">
-  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6">
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-pink-50 px-4 py-8">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8">
 
-    <h2 class="text-2xl font-bold mb-6 text-center text-pink-600">
-      Registrarse
-    </h2>
+    <!-- Encabezado -->
+    <div class="text-center mb-8">
+      <img src="{{ url_for('static', filename='img/San_vicentino.jpeg') }}" alt="San Vicentino"
+           class="w-20 h-20 rounded-full mx-auto mb-4 border-4 border-blue-500 shadow-md">
+      <h2 class="text-3xl font-bold text-gray-800 mb-2">Bienvenido</h2>
+      <p class="text-gray-600">Crea tu cuenta en San Vicentino</p>
+    </div>
 
+    <!-- Mensajes de error -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
           <div class="mb-4 p-3 rounded-lg text-sm
             {% if category == 'danger' %}
-              bg-red-100 text-red-700
+              bg-red-100 text-red-700 border border-red-300
             {% else %}
-              bg-pink-100 text-pink-700
+              bg-green-100 text-green-700 border border-green-300
             {% endif %}
           ">
             {{ message }}
@@ -27,43 +32,104 @@
     <form method="POST" class="space-y-4">
       {{ form.hidden_tag() }}
 
+      <!-- Nombre de usuario -->
       <div>
-        {{ form.username.label(class="block text-sm font-medium text-gray-700 mb-1") }}
-        {{ form.username(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500") }}
+        {{ form.username.label(class="block text-sm font-semibold text-gray-700 mb-2") }}
+        {{ form.username(class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition") }}
+        {% if form.username.errors %}
+        <div class="text-red-500 text-xs mt-1">
+          {% for error in form.username.errors %}{{ error }}{% endfor %}
+        </div>
+        {% endif %}
       </div>
 
+      <!-- Email -->
       <div>
-        {{ form.email.label(class="block text-sm font-medium text-gray-700 mb-1") }}
-        {{ form.email(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500") }}
+        {{ form.email.label(class="block text-sm font-semibold text-gray-700 mb-2") }}
+        {{ form.email(class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition") }}
+        {% if form.email.errors %}
+        <div class="text-red-500 text-xs mt-1">
+          {% for error in form.email.errors %}{{ error }}{% endfor %}
+        </div>
+        {% endif %}
       </div>
 
+      <!-- Contraseña -->
       <div>
-        {{ form.password.label(class="block text-sm font-medium text-gray-700 mb-1") }}
-        {{ form.password(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500") }}
+        {{ form.password.label(class="block text-sm font-semibold text-gray-700 mb-2") }}
+        {{ form.password(class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition") }}
+        {% if form.password.errors %}
+        <div class="text-red-500 text-xs mt-1">
+          {% for error in form.password.errors %}{{ error }}{% endfor %}
+        </div>
+        {% endif %}
       </div>
 
+      <!-- Confirmar contraseña -->
       <div>
-        {{ form.confirm_password.label(class="block text-sm font-medium text-gray-700 mb-1") }}
-        {{ form.confirm_password(class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500") }}
+        {{ form.confirm_password.label(class="block text-sm font-semibold text-gray-700 mb-2") }}
+        {{ form.confirm_password(class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition") }}
+        {% if form.confirm_password.errors %}
+        <div class="text-red-500 text-xs mt-1">
+          {% for error in form.confirm_password.errors %}{{ error }}{% endfor %}
+        </div>
+        {% endif %}
       </div>
 
+      <!-- Selección de rol (Cliente o Admin) -->
+      <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+        <p class="text-sm font-semibold text-gray-700 mb-3">¿Cuál es tu rol?</p>
+        <div class="space-y-2">
+          <label class="flex items-center cursor-pointer">
+            <input type="radio" name="role" value="client" checked class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500">
+            <span class="ml-3 text-sm text-gray-700">
+              👤 <span class="font-semibold">Cliente</span> - Comprar productos y gestionar mi carrito
+            </span>
+          </label>
+          <label class="flex items-center cursor-pointer">
+            <input type="radio" name="role" value="admin" class="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500">
+            <span class="ml-3 text-sm text-gray-700">
+              🔑 <span class="font-semibold">Administrador</span> - Crear y gestionar productos
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Botón de registro -->
       <div>
         {{ form.submit(
-          class="w-full bg-pink-600 text-white py-2 rounded-lg font-semibold
-                 hover:bg-pink-700 focus:outline-none focus:ring-2
-                 focus:ring-pink-400 focus:ring-offset-2 transition duration-300"
+          class="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 rounded-lg font-semibold
+                 hover:from-blue-700 hover:to-blue-600 focus:outline-none focus:ring-2
+                 focus:ring-blue-400 focus:ring-offset-2 transition duration-300 shadow-md"
         ) }}
       </div>
     </form>
 
+    <!-- Separador -->
+    <div class="flex items-center my-6">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="mx-2 text-sm text-gray-500">o</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+
+    <!-- Google Registration -->
+    {% if oauth_enabled %}
+    <a href="{{ url_for('google_login') }}"
+       class="w-full flex items-center justify-center gap-3 border-2 border-gray-300
+              py-3 rounded-lg hover:bg-gray-50 transition font-medium text-gray-700">
+      <img src="https://www.svgrepo.com/show/475656/google-color.svg"
+           class="w-5 h-5" alt="Google">
+      Registrarse con Google
+    </a>
+    {% endif %}
+
+    <!-- Enlace a login -->
     <p class="mt-6 text-center text-sm text-gray-600">
       ¿Ya tienes cuenta?
-      <a href="{{ url_for('login') }}"
-         class="text-pink-600 font-medium hover:underline">
+      <a href="{{ url_for('login') }}" class="text-blue-600 font-semibold hover:text-blue-800 transition">
         Inicia sesión
       </a>
     </p>
-
   </div>
 </div>
 
