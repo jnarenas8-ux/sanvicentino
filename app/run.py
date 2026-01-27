@@ -7,6 +7,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, EqualTo, Length
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 import os
@@ -16,6 +17,7 @@ import time
 import uuid
 from datetime import datetime
 from sqlalchemy.exc import OperationalError
+from PIL import Image
 from models import (
     db, User, Product, Cart, CartItem, Order, OrderItem, Payment
 )
@@ -55,6 +57,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# ========================
+# CONFIGURACIÓN DE CARGA DE ARCHIVOS
+# ========================
+UPLOAD_FOLDER = Path(__file__).parent / "static" / "uploads"
+UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+app.config['UPLOAD_FOLDER'] = str(UPLOAD_FOLDER)
+app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
+
 db.init_app(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -85,6 +98,58 @@ if OAUTH_ENABLED:
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+# ========================
+# FUNCIONES AUXILIARES
+# ========================
+def allowed_file(filename):
+    """Verifica si el archivo tiene una extensión permitida"""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def save_upload_image(file):
+    """
+    Guarda una imagen subida, la optimiza y retorna el nombre de archivo
+    Args:
+        file: Objeto de archivo de Flask
+    Returns:
+        str: Nombre del archivo guardado o None si hay error
+    """
+    try:
+        if not file or file.filename == '':
+            return None
+        
+        if not allowed_file(file.filename):
+            flash('Tipo de archivo no permitido. Use: PNG, JPG, JPEG, GIF, WebP', 'danger')
+            return None
+        
+        if file.content_length > MAX_FILE_SIZE:
+            flash('El archivo es demasiado grande. Máximo: 5MB', 'danger')
+            return None
+        
+        # Generar nombre único para el archivo
+        file_ext = file.filename.rsplit('.', 1)[1].lower()
+        unique_filename = f"{uuid.uuid4().hex}.{file_ext}"
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], unique_filename)
+        
+        # Abrir y optimizar imagen
+        img = Image.open(file.stream)
+        
+        # Convertir RGBA a RGB si es necesario
+        if img.mode in ('RGBA', 'LA', 'P'):
+            background = Image.new('RGB', img.size, (255, 255, 255))
+            background.paste(img, mask=img.split()[-1] if img.mode == 'RGBA' else None)
+            img = background
+        
+        # Redimensionar si es muy grande (máximo 1920x1080)
+        img.thumbnail((1920, 1080), Image.Resampling.LANCZOS)
+        
+        # Guardar imagen optimizada
+        img.save(filepath, 'JPEG', quality=85, optimize=True)
+        
+        return unique_filename
+    except Exception as e:
+        flash(f'Error al procesar la imagen: {str(e)}', 'danger')
+        return None
 
 # ========================
 # FORMULARIOS
@@ -619,13 +684,36 @@ def crear_producto():
     
     if request.method == 'POST':
         try:
+            # Obtener datos del formulario
+            nombre = request.form.get('nombre')
+            descripcion = request.form.get('descripcion')
+            precio = float(request.form.get('precio', 0))
+            categoria = request.form.get('categoria')
+            stock = int(request.form.get('stock', 0))
+            
+            # Procesar imagen
+            imagen_url = None
+            
+            # Prioridad 1: Archivo subido
+            if 'imagen_archivo' in request.files:
+                file = request.files['imagen_archivo']
+                if file and file.filename != '':
+                    filename = save_upload_image(file)
+                    if filename:
+                        imagen_url = f"/static/uploads/{filename}"
+            
+            # Prioridad 2: URL si no hay archivo
+            if not imagen_url:
+                imagen_url = request.form.get('imagen')
+            
+            # Crear producto
             product = Product(
-                nombre=request.form.get('nombre'),
-                descripcion=request.form.get('descripcion'),
-                precio=float(request.form.get('precio', 0)),
-                categoria=request.form.get('categoria'),
-                imagen=request.form.get('imagen'),
-                stock=int(request.form.get('stock', 0)),
+                nombre=nombre,
+                descripcion=descripcion,
+                precio=precio,
+                categoria=categoria,
+                imagen=imagen_url,
+                stock=stock,
                 publicado=False  # Los nuevos productos se crean sin publicar
             )
             
@@ -634,6 +722,9 @@ def crear_producto():
             
             flash('Producto creado exitosamente (aún no está publicado)', 'success')
             return redirect(url_for('productos'))
+        except ValueError as e:
+            db.session.rollback()
+            flash(f'Error: Datos inválidos - {str(e)}', 'danger')
         except Exception as e:
             db.session.rollback()
             flash(f'Error al crear el producto: {str(e)}', 'danger')

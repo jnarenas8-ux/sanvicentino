@@ -137,6 +137,18 @@
 <script>
 async function agregarAlCarrito(productId) {
     try {
+        // Capturar el evento y el botón ANTES de entrar en la promesa
+        const boton = event.target;
+        const productElement = boton.closest('.bg-white') || boton.closest('.group');
+        let productName = 'Producto';
+        
+        if (productElement) {
+            const nameElement = productElement.querySelector('h2') || productElement.querySelector('h3');
+            if (nameElement) {
+                productName = nameElement.textContent.trim();
+            }
+        }
+        
         const response = await fetch(`/carrito/agregar/${productId}`, {
             method: 'POST',
             headers: {
@@ -144,7 +156,13 @@ async function agregarAlCarrito(productId) {
             }
         });
         
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
+        
+        console.log('Respuesta del servidor:', data);
         
         if (data.success) {
             // Actualizar contador del carrito
@@ -153,14 +171,14 @@ async function agregarAlCarrito(productId) {
                 el.textContent = data.cart_count;
             });
             
-            // Mostrar notificación de éxito
-            alert(data.message);
+            // Mostrar modal de éxito
+            showCartModal(productName);
         } else {
             alert(data.error || 'Error al agregar producto');
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('Error al agregar el producto al carrito');
+        console.error('Error capturado:', error);
+        alert('Error al agregar el producto al carrito: ' + error.message);
     }
 }
 </script>

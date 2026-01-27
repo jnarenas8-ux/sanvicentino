@@ -111,6 +111,62 @@
     </div>
     <div class="text-center text-white text-xs py-2 border-t border-sky-400 mt-4">&copy; 2025 San Vicentino. Todos los derechos reservados.</div>
   </footer>
+  <!-- Modal para agregar al carrito -->
+  <div id="cartModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-2xl p-8 max-w-sm w-full mx-4 transform transition-all animate-bounce">
+      <!-- Icono de éxito -->
+      <div class="flex justify-center mb-6">
+        <div class="bg-green-100 rounded-full p-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Mensaje -->
+      <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">¡Agregado al Carrito!</h2>
+      <p class="text-center text-gray-600 mb-6" id="cartModalProduct"></p>
+      
+      <!-- Botones -->
+      <div class="flex gap-3">
+        <button onclick="closeCartModal()" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 rounded-lg transition">
+          Continuar Comprando
+        </button>
+        <a href="{{ url_for('ver_carrito') }}" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition text-center">
+          Ver Carrito
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Función para mostrar el modal
+    function showCartModal(productName) {
+      const modal = document.getElementById('cartModal');
+      const productElement = document.getElementById('cartModalProduct');
+      productElement.textContent = `"${productName}" ha sido añadido exitosamente`;
+      modal.classList.remove('hidden');
+      
+      // Cerrar automáticamente después de 3 segundos
+      setTimeout(() => {
+        closeCartModal();
+      }, 3000);
+    }
+    
+    // Función para cerrar el modal
+    function closeCartModal() {
+      const modal = document.getElementById('cartModal');
+      modal.classList.add('hidden');
+    }
+    
+    // Cerrar modal al hacer clic fuera
+    document.getElementById('cartModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeCartModal();
+      }
+    });
+  </script>
+
   <script src="{{ url_for('static', filename='js/contactanos.js') }}"></script>
   <script src="{{ url_for('static', filename='js/carrusel.js') }}"></script>
   <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
