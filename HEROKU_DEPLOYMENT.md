@@ -106,6 +106,7 @@ heroku apps:info --app sanvicentino-juana
 ---
 
 ## ✅ CHECKLIST FINAL
+export HEROKU_API_KEY=HRKU-AA-DFUx-4WF1BNpcCM-zCk5BUOHlqDTK-QVizwyOCCfA_____wxlKdg6xBDa
 
 - [ ] Heroku CLI instalado
 - [ ] Cuenta de Heroku creada
