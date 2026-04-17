@@ -6,4 +6,5 @@ email-validator
 authlib
 python-dotenv
 pymysql
-requestsPillow
+Pillow
+requests

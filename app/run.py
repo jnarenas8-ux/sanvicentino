@@ -613,6 +613,10 @@ def logout():
 def contactanos():
     return render_template('contactanos.html')
 
+@app.route('/asesor')
+def asesor():
+    return render_template('asesor.html')
+
 
 # ========================
 # RUTAS DE PRODUCTOS

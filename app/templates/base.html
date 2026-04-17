@@ -41,6 +41,17 @@
           
           <a href="{{ url_for('contactanos') }}"class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">Nosotros</a>
           
+          <!-- Menú Asesores de Ventas -->
+          <div class="relative group">
+            <button class="py-2 px-2 text-lg rounded-lg hover:bg-blue-400 hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white animate-fade-in">
+              👥 Asesores de Ventas
+            </button>
+            <div class="absolute left-0 mt-0 w-48 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+              <a href="{{ url_for('asesor') }}" class="block px-4 py-2 hover:bg-blue-100 rounded-t-lg">📞 Contactar Asesor</a>
+              <a href="{{ url_for('productos') }}" class="block px-4 py-2 hover:bg-blue-100 rounded-b-lg border-t border-gray-200">📋 Ver Productos</a>
+            </div>
+          </div>
+          
           <!-- Menú Administración (Solo para Admin) -->
           {% if current_user.is_authenticated and current_user.is_admin %}
           <div class="relative group">
