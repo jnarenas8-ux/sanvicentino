@@ -509,6 +509,21 @@ def mis_ordenes():
     return render_template('mis_ordenes.html', orders=orders, cart_count=cart_count)
 
 
+@app.route('/orden-de-pedido')
+@login_required
+def orden_pedido():
+    if not current_user.is_admin:
+        flash('Acceso denegado.', 'danger')
+        return redirect(url_for('index'))
+
+    cart_count = 0
+    cart = Cart.query.filter_by(user_id=current_user.id).first()
+    if cart:
+        cart_count = cart.get_item_count()
+
+    return render_template('orden_de_pedido.html', cart_count=cart_count)
+
+
 @app.route('/login/google')
 def google_login():
     if not OAUTH_ENABLED or google is None:
